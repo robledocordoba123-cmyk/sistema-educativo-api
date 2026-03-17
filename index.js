@@ -1,0 +1,29 @@
+require('dotenv').config();
+const express = require('express');
+const app = express();
+
+app.use(express.json());
+
+app.use((req, res, next) => {
+  const apiKey = req.headers['password'];
+  if (!apiKey) {
+    return res.status(401).json({ success: false, message: 'Password requerida' });
+  }
+  if (apiKey !== process.env.API_PASSWORD) {
+    return res.status(403).json({ success: false, message: 'Password incorrecta' });
+  }
+  next();
+});
+
+app.use('/profesores', require('./routes/profesores'));
+app.use('/materias', require('./routes/materias'));
+app.use('/estudiantes', require('./routes/estudiantes'));
+app.use('/cursos', require('./routes/cursos'));
+app.use('/horarios', require('./routes/horarios'));
+app.use('/inscripciones', require('./routes/inscripciones'));
+app.use('/notas', require('./routes/notas'));
+
+const PORT = process.env.PORT || 3000;
+const server = app.listen(PORT, () => {
+  console.log(`API corriendo en http://localhost:${server.address().port}`);
+});

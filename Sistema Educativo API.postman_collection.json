@@ -1,0 +1,1256 @@
+{
+  "info": {
+    "_postman_id": "de592391-ed43-49c5-a9c9-26d84790680f",
+    "name": "Sistema Educativo API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "52178043",
+    "_collection_link": "https://go.postman.co/collection/52178043-de592391-ed43-49c5-a9c9-26d84790680f?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Todos los profesores",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [
+          {
+            "key": "password",
+            "value": "sena2025",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:3000/profesores",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "profesores"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Crear profesor",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "password",
+            "value": "sena2025",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"nombre\": \"Carlos Pérez\",\r\n  \"email\": \"carlos@email.com\",\r\n  \"especialidad\": \"Matemáticas\",\r\n  \"telefono\": \"3001234567\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://sistema-educativo-api.onrender.com/profesores",
+          "protocol": "https",
+          "host": [
+            "sistema-educativo-api",
+            "onrender",
+            "com"
+          ],
+          "path": [
+            "profesores"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Crear materia",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "password",
+            "value": "sena2025",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"nombre\": \"Cálculo Diferencial\",\r\n  \"codigo\": \"MAT101\",\r\n  \"creditos\": 4,\r\n  \"descripcion\": \"Fundamentos del cálculo\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://sistema-educativo-api.onrender.com/materias",
+          "protocol": "https",
+          "host": [
+            "sistema-educativo-api",
+            "onrender",
+            "com"
+          ],
+          "path": [
+            "materias"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Crear estudiante",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "password",
+            "value": "sena2025",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"nombre\": \"Ana García\",\r\n  \"email\": \"ana@email.com\",\r\n  \"documento\": \"1234567890\",\r\n  \"telefono\": \"3109876543\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://sistema-educativo-api.onrender.com/estudiantes",
+          "protocol": "https",
+          "host": [
+            "sistema-educativo-api",
+            "onrender",
+            "com"
+          ],
+          "path": [
+            "estudiantes"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Crear curso",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "password",
+            "value": "sena2025",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"nombre\": \"Cálculo Grupo A\",\r\n  \"materiaId\": 1,\r\n  \"profesorId\": 1,\r\n  \"año\": 2026,\r\n  \"semestre\": 1,\r\n  \"cupo\": 30\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://sistema-educativo-api.onrender.com/cursos",
+          "protocol": "https",
+          "host": [
+            "sistema-educativo-api",
+            "onrender",
+            "com"
+          ],
+          "path": [
+            "cursos"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Crear horario",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "password",
+            "value": "sena2025",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"cursoId\": 2,\r\n  \"dia\": \"Lunes\",\r\n  \"horaInicio\": \"08:00\",\r\n  \"horaFin\": \"10:00\",\r\n  \"salon\": \"A101\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://sistema-educativo-api.onrender.com/horarios",
+          "protocol": "https",
+          "host": [
+            "sistema-educativo-api",
+            "onrender",
+            "com"
+          ],
+          "path": [
+            "horarios"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Crear inscripcion",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "password",
+            "value": "sena2025",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"estudianteId\": 2,\r\n  \"cursoId\": 2,\r\n  \"fechaInscripcion\": \"2026-03-18\",\r\n  \"estado\": \"activa\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://sistema-educativo-api.onrender.com/inscripciones",
+          "protocol": "https",
+          "host": [
+            "sistema-educativo-api",
+            "onrender",
+            "com"
+          ],
+          "path": [
+            "inscripciones"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Crear nota",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "password",
+            "value": "sena2025",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"inscripcionId\": 2,\r\n  \"tipo\": \"parcial1\",\r\n  \"valor\": 4.5,\r\n  \"fecha\": \"2026-03-18\",\r\n  \"observacion\": \"Buen desempeño\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://sistema-educativo-api.onrender.com/notas",
+          "protocol": "https",
+          "host": [
+            "sistema-educativo-api",
+            "onrender",
+            "com"
+          ],
+          "path": [
+            "notas"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Todas las materias",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [
+          {
+            "key": "password",
+            "value": "sena2025",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://sistema-educativo-api.onrender.com/materias",
+          "protocol": "https",
+          "host": [
+            "sistema-educativo-api",
+            "onrender",
+            "com"
+          ],
+          "path": [
+            "materias"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Todos los estudiantes",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [
+          {
+            "key": "password",
+            "value": "sena2025",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://sistema-educativo-api.onrender.com/estudiantes",
+          "protocol": "https",
+          "host": [
+            "sistema-educativo-api",
+            "onrender",
+            "com"
+          ],
+          "path": [
+            "estudiantes"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Todos los cursos",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [
+          {
+            "key": "password",
+            "value": "sena2025",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://sistema-educativo-api.onrender.com/cursos",
+          "protocol": "https",
+          "host": [
+            "sistema-educativo-api",
+            "onrender",
+            "com"
+          ],
+          "path": [
+            "cursos"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Todos los horarios",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [
+          {
+            "key": "password",
+            "value": "sena2025",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://sistema-educativo-api.onrender.com/horarios",
+          "protocol": "https",
+          "host": [
+            "sistema-educativo-api",
+            "onrender",
+            "com"
+          ],
+          "path": [
+            "horarios"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Todas las inscripciones",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [
+          {
+            "key": "password",
+            "value": "sena2025",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://sistema-educativo-api.onrender.com/inscripciones",
+          "protocol": "https",
+          "host": [
+            "sistema-educativo-api",
+            "onrender",
+            "com"
+          ],
+          "path": [
+            "inscripciones"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Todas las notas",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [
+          {
+            "key": "password",
+            "value": "sena2025",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://sistema-educativo-api.onrender.com/notas",
+          "protocol": "https",
+          "host": [
+            "sistema-educativo-api",
+            "onrender",
+            "com"
+          ],
+          "path": [
+            "notas"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Error 404 - Materia no encontrada",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [
+          {
+            "key": "password",
+            "value": "sena2025",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://sistema-educativo-api.onrender.com/materias/1",
+          "protocol": "https",
+          "host": [
+            "sistema-educativo-api",
+            "onrender",
+            "com"
+          ],
+          "path": [
+            "materias",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Error 404 - Profesor no encontrado",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [
+          {
+            "key": "Password",
+            "value": "sena2025",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://sistema-educativo-api.onrender.com/profesores/999",
+          "protocol": "https",
+          "host": [
+            "sistema-educativo-api",
+            "onrender",
+            "com"
+          ],
+          "path": [
+            "profesores",
+            "999"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Error 400 - Profesor sin campos",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "password",
+            "value": "sena2025",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://sistema-educativo-api.onrender.com/profesores",
+          "protocol": "https",
+          "host": [
+            "sistema-educativo-api",
+            "onrender",
+            "com"
+          ],
+          "path": [
+            "profesores"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Profesor por ID",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "password",
+            "value": "sena2025",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://sistema-educativo-api.onrender.com/profesores/2",
+          "protocol": "https",
+          "host": [
+            "sistema-educativo-api",
+            "onrender",
+            "com"
+          ],
+          "path": [
+            "profesores",
+            "2"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Materia por ID",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "password",
+            "value": "sena2025",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://sistema-educativo-api.onrender.com/materias/2",
+          "protocol": "https",
+          "host": [
+            "sistema-educativo-api",
+            "onrender",
+            "com"
+          ],
+          "path": [
+            "materias",
+            "2"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Estudiante por ID",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "password",
+            "value": "sena2025",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://sistema-educativo-api.onrender.com/estudiantes/2",
+          "protocol": "https",
+          "host": [
+            "sistema-educativo-api",
+            "onrender",
+            "com"
+          ],
+          "path": [
+            "estudiantes",
+            "2"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Curso por ID",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "password",
+            "value": "sena2025",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://sistema-educativo-api.onrender.com/cursos/2",
+          "protocol": "https",
+          "host": [
+            "sistema-educativo-api",
+            "onrender",
+            "com"
+          ],
+          "path": [
+            "cursos",
+            "2"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Horario por ID",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "password",
+            "value": "sena2025",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://sistema-educativo-api.onrender.com/horarios/2",
+          "protocol": "https",
+          "host": [
+            "sistema-educativo-api",
+            "onrender",
+            "com"
+          ],
+          "path": [
+            "horarios",
+            "2"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Inscripcion por ID",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "password",
+            "value": "sena2025",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://sistema-educativo-api.onrender.com/inscripciones/2",
+          "protocol": "https",
+          "host": [
+            "sistema-educativo-api",
+            "onrender",
+            "com"
+          ],
+          "path": [
+            "inscripciones",
+            "2"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Nota por ID",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "password",
+            "value": "sena2025",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://sistema-educativo-api.onrender.com/notas/2",
+          "protocol": "https",
+          "host": [
+            "sistema-educativo-api",
+            "onrender",
+            "com"
+          ],
+          "path": [
+            "notas",
+            "2"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Actualizar profesor",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "password",
+            "value": "sena2025",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"nombre\":\"Carlos Pérez Actualizado\",\"email\":\"carlos@email.com\",\"especialidad\":\"Física\",\"telefono\":\"3001234567\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://sistema-educativo-api.onrender.com/profesores/2",
+          "protocol": "https",
+          "host": [
+            "sistema-educativo-api",
+            "onrender",
+            "com"
+          ],
+          "path": [
+            "profesores",
+            "2"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Actualizar materia",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "password",
+            "value": "sena2025",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"nombre\":\"Cálculo Diferencial Avanzado\",\"codigo\":\"MAT101\",\"creditos\":5,\"descripcion\":\"Fundamentos avanzados\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://sistema-educativo-api.onrender.com/materias/2",
+          "protocol": "https",
+          "host": [
+            "sistema-educativo-api",
+            "onrender",
+            "com"
+          ],
+          "path": [
+            "materias",
+            "2"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Actualizar estudiante",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "password",
+            "value": "sena2025",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"nombre\":\"Ana García Actualizada\",\"email\":\"ana@email.com\",\"documento\":\"1234567890\",\"telefono\":\"3109876543\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://sistema-educativo-api.onrender.com/estudiantes/2",
+          "protocol": "https",
+          "host": [
+            "sistema-educativo-api",
+            "onrender",
+            "com"
+          ],
+          "path": [
+            "estudiantes",
+            "2"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Actualizar curso",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "password",
+            "value": "sena2025",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"nombre\": \"Cálculo Grupo B\",\r\n  \"materiaId\": 2,\r\n  \"profesorId\": 2,\r\n  \"año\": 2026,\r\n  \"semestre\": 1,\r\n  \"cupo\": 35\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://sistema-educativo-api.onrender.com/cursos/2",
+          "protocol": "https",
+          "host": [
+            "sistema-educativo-api",
+            "onrender",
+            "com"
+          ],
+          "path": [
+            "cursos",
+            "2"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Actualizar horario",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "password",
+            "value": "sena2025",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"cursoId\": 2,\r\n  \"dia\": \"Martes\",\r\n  \"horaInicio\": \"10:00\",\r\n  \"horaFin\": \"12:00\",\r\n  \"salon\": \"B202\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://sistema-educativo-api.onrender.com/horarios/2",
+          "protocol": "https",
+          "host": [
+            "sistema-educativo-api",
+            "onrender",
+            "com"
+          ],
+          "path": [
+            "horarios",
+            "2"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Actualizar inscripciones",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "password",
+            "value": "sena2025",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"estudianteId\": 2,\r\n  \"cursoId\": 2,\r\n  \"fechaInscripcion\": \"2026-03-18\",\r\n  \"estado\": \"finalizada\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://sistema-educativo-api.onrender.com/inscripciones/2",
+          "protocol": "https",
+          "host": [
+            "sistema-educativo-api",
+            "onrender",
+            "com"
+          ],
+          "path": [
+            "inscripciones",
+            "2"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Actualizar nota",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "password",
+            "value": "sena2025",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"inscripcionId\": 2,\r\n  \"tipo\": \"parcial1\",\r\n  \"valor\": 3.8,\r\n  \"fecha\": \"2026-03-18\",\r\n  \"observacion\": \"Revisado\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://sistema-educativo-api.onrender.com/notas/2",
+          "protocol": "https",
+          "host": [
+            "sistema-educativo-api",
+            "onrender",
+            "com"
+          ],
+          "path": [
+            "notas",
+            "2"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Error 401 - Sin password",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://sistema-educativo-api.onrender.com/profesoreshttps://sistema-educativo-api.onrender.com/profesores",
+          "protocol": "https",
+          "host": [
+            "sistema-educativo-api",
+            "onrender",
+            "com"
+          ],
+          "path": [
+            "profesoreshttps:",
+            "",
+            "sistema-educativo-api.onrender.com",
+            "profesores"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Error 403 - Password incorrecta",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "password",
+            "value": "hola1234",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://sistema-educativo-api.onrender.com/profesores",
+          "protocol": "https",
+          "host": [
+            "sistema-educativo-api",
+            "onrender",
+            "com"
+          ],
+          "path": [
+            "profesores"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Eliminar nota",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "password",
+            "value": "sena2025",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://sistema-educativo-api.onrender.com/notas/2",
+          "protocol": "https",
+          "host": [
+            "sistema-educativo-api",
+            "onrender",
+            "com"
+          ],
+          "path": [
+            "notas",
+            "2"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Eliminar inscripcion",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "password",
+            "value": "sena2025",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://sistema-educativo-api.onrender.com/inscripciones/2",
+          "protocol": "https",
+          "host": [
+            "sistema-educativo-api",
+            "onrender",
+            "com"
+          ],
+          "path": [
+            "inscripciones",
+            "2"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Eliminar horario",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "password",
+            "value": "sena2025",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://sistema-educativo-api.onrender.com/horarios/2",
+          "protocol": "https",
+          "host": [
+            "sistema-educativo-api",
+            "onrender",
+            "com"
+          ],
+          "path": [
+            "horarios",
+            "2"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Eliminar curso",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "password",
+            "value": "sena2025",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://sistema-educativo-api.onrender.com/cursos/2",
+          "protocol": "https",
+          "host": [
+            "sistema-educativo-api",
+            "onrender",
+            "com"
+          ],
+          "path": [
+            "cursos",
+            "2"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Eliminar estudiante",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "password",
+            "value": "sena2025",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://sistema-educativo-api.onrender.com/estudiantes/2",
+          "protocol": "https",
+          "host": [
+            "sistema-educativo-api",
+            "onrender",
+            "com"
+          ],
+          "path": [
+            "estudiantes",
+            "2"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Eliminar materia",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "password",
+            "value": "sena2025",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://sistema-educativo-api.onrender.com/materias/2",
+          "protocol": "https",
+          "host": [
+            "sistema-educativo-api",
+            "onrender",
+            "com"
+          ],
+          "path": [
+            "materias",
+            "2"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Eliminar profesor",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "password",
+            "value": "sena2025",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://sistema-educativo-api.onrender.com/profesores/2",
+          "protocol": "https",
+          "host": [
+            "sistema-educativo-api",
+            "onrender",
+            "com"
+          ],
+          "path": [
+            "profesores",
+            "2"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

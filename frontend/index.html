@@ -1,34 +1,272 @@
-require('dotenv').config();
-const express = require('express');
-const cors = require('cors');
-const app = express();
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sistema Educativo</title>
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', sans-serif; background: #0f172a; color: #e2e8f0; min-height: 100vh; }
+:root { --bg:#0f172a; --bg2:#1e293b; --bg3:#334155; --accent:#38bdf8; --accent2:#818cf8; --green:#34d399; --red:#f87171; --amber:#fbbf24; --text:#e2e8f0; --muted:#94a3b8; --border:rgba(148,163,184,0.15); --radius:12px; }
+.app { display:flex; min-height:100vh; }
+.sidebar { width:220px; background:var(--bg2); border-right:1px solid var(--border); display:flex; flex-direction:column; padding:1.5rem 1rem; gap:4px; flex-shrink:0; }
+.logo { font-size:13px; font-weight:700; color:var(--accent); letter-spacing:0.1em; text-transform:uppercase; padding:0 0.5rem 1.5rem; border-bottom:1px solid var(--border); margin-bottom:0.5rem; }
+.nav-item { display:flex; align-items:center; gap:10px; padding:0.6rem 0.75rem; border-radius:8px; cursor:pointer; font-size:13px; color:var(--muted); transition:all 0.15s; border:none; background:none; width:100%; text-align:left; }
+.nav-item:hover { background:var(--bg3); color:var(--text); }
+.nav-item.active { background:rgba(56,189,248,0.15); color:var(--accent); font-weight:600; }
+.main { flex:1; display:flex; flex-direction:column; }
+.topbar { background:var(--bg2); border-bottom:1px solid var(--border); padding:1rem 1.5rem; display:flex; align-items:center; justify-content:space-between; }
+.topbar h1 { font-size:18px; font-weight:600; }
+.content { flex:1; padding:1.5rem; overflow-y:auto; }
+.login-wrap { display:flex; align-items:center; justify-content:center; min-height:100vh; }
+.login-card { background:var(--bg2); border:1px solid var(--border); border-radius:16px; padding:2.5rem; width:360px; }
+.login-title { font-size:22px; font-weight:700; color:var(--accent); margin-bottom:0.25rem; }
+.login-sub { font-size:13px; color:var(--muted); margin-bottom:2rem; }
+.field { margin-bottom:1rem; }
+.field label { display:block; font-size:12px; color:var(--muted); margin-bottom:6px; text-transform:uppercase; letter-spacing:0.05em; }
+.field input { width:100%; padding:0.6rem 0.75rem; background:var(--bg3); border:1px solid var(--border); border-radius:8px; color:var(--text); font-size:14px; outline:none; }
+.field input:focus { border-color:var(--accent); }
+.btn { padding:0.65rem 1.25rem; border-radius:8px; border:none; cursor:pointer; font-size:13px; font-weight:600; transition:all 0.15s; }
+.btn-primary { background:var(--accent); color:#0f172a; }
+.btn-danger { background:rgba(248,113,113,0.15); color:var(--red); border:1px solid rgba(248,113,113,0.3); }
+.btn-sm { padding:0.35rem 0.75rem; font-size:12px; }
+.btn-ghost { background:var(--bg3); color:var(--text); }
+.stats-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:1rem; margin-bottom:1.5rem; }
+.stat-card { background:var(--bg2); border:1px solid var(--border); border-radius:var(--radius); padding:1.1rem; display:flex; flex-direction:column; gap:6px; }
+.stat-label { font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:0.08em; }
+.stat-value { font-size:28px; font-weight:700; }
+.table-wrap { background:var(--bg2); border:1px solid var(--border); border-radius:var(--radius); overflow:hidden; }
+.table-header { padding:1rem 1.25rem; border-bottom:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; gap:1rem; }
+.search-input { background:var(--bg3); border:1px solid var(--border); border-radius:8px; padding:0.5rem 0.75rem; color:var(--text); font-size:13px; outline:none; width:220px; }
+table { width:100%; border-collapse:collapse; font-size:13px; }
+th { padding:0.75rem 1.25rem; text-align:left; color:var(--muted); font-size:11px; text-transform:uppercase; border-bottom:1px solid var(--border); }
+td { padding:0.85rem 1.25rem; border-bottom:1px solid var(--border); }
+tr:last-child td { border-bottom:none; }
+.badge { display:inline-block; padding:3px 10px; border-radius:20px; font-size:11px; font-weight:600; }
+.badge-green { background:rgba(52,211,153,0.15); color:var(--green); }
+.badge-red { background:rgba(248,113,113,0.15); color:var(--red); }
+.badge-amber { background:rgba(251,191,36,0.15); color:var(--amber); }
+.badge-blue { background:rgba(56,189,248,0.15); color:var(--accent); }
+.loading { display:flex; align-items:center; justify-content:center; padding:3rem; color:var(--muted); gap:10px; }
+.spinner { width:20px; height:20px; border:2px solid var(--bg3); border-top-color:var(--accent); border-radius:50%; animation:spin 0.7s linear infinite; }
+@keyframes spin { to { transform:rotate(360deg); } }
+.empty { text-align:center; padding:3rem; color:var(--muted); }
+.error-msg { background:rgba(248,113,113,0.1); border:1px solid rgba(248,113,113,0.3); border-radius:8px; padding:0.75rem 1rem; font-size:13px; color:var(--red); margin-bottom:1rem; }
+.success-msg { background:rgba(52,211,153,0.1); border:1px solid rgba(52,211,153,0.3); border-radius:8px; padding:0.75rem 1rem; font-size:13px; color:var(--green); margin-bottom:1rem; }
+.modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.7); display:flex; align-items:center; justify-content:center; z-index:100; }
+.modal { background:var(--bg2); border:1px solid var(--border); border-radius:16px; padding:2rem; width:440px; max-width:95vw; max-height:90vh; overflow-y:auto; }
+.modal-title { font-size:16px; font-weight:600; margin-bottom:1.5rem; }
+.form-grid { display:grid; grid-template-columns:1fr 1fr; gap:0.75rem; }
+.form-grid .full { grid-column:1/-1; }
+.actions { display:flex; gap:0.5rem; justify-content:flex-end; margin-top:1.5rem; }
+.select-field { width:100%; padding:0.6rem 0.75rem; background:var(--bg3); border:1px solid var(--border); border-radius:8px; color:var(--text); font-size:14px; outline:none; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const { useState, useEffect, useCallback } = React;
+const API = 'https://sistema-educativo-api.onrender.com';
 
-app.use(express.json());
-app.use(cors());
+function useApi(password) {
+  const h = { 'Content-Type': 'application/json', password };
+  return {
+    get: (p) => fetch(`${API}${p}`, { headers: h }).then(r => r.json()),
+    post: (p, b) => fetch(`${API}${p}`, { method:'POST', headers:h, body:JSON.stringify(b) }).then(r => r.json()),
+    put: (p, b) => fetch(`${API}${p}`, { method:'PUT', headers:h, body:JSON.stringify(b) }).then(r => r.json()),
+    del: (p) => fetch(`${API}${p}`, { method:'DELETE', headers:h }).then(r => r.json()),
+  };
+}
 
-// MIDDLEWARE DE AUTENTICACIÓN GLOBAL
-// Se ejecuta antes de llegar a cualquier endpoint
-app.use((req, res, next) => {
-  const apiKey = req.headers['password'];
-  if (!apiKey) {
-    return res.status(401).json({ success: false, message: 'Password requerida' });
-  }
-  if (apiKey !== process.env.API_PASSWORD) {
-    return res.status(403).json({ success: false, message: 'Password incorrecta' });
-  }
-  next();
-});
+function Login({ onLogin }) {
+  const [pw, setPw] = useState('');
+  const [err, setErr] = useState('');
+  const [loading, setLoading] = useState(false);
+  const handleLogin = async () => {
+    if (!pw.trim()) { setErr('Ingresa la contraseña'); return; }
+    setLoading(true); setErr('');
+    try {
+      const r = await fetch(`${API}/profesores`, { headers: { password: pw } });
+      if (r.status === 401 || r.status === 403) setErr('Contraseña incorrecta');
+      else onLogin(pw);
+    } catch(e) { setErr('No se pudo conectar. Espera 30 segundos e intenta de nuevo.'); }
+    setLoading(false);
+  };
+  return (
+    <div className="login-wrap">
+      <div className="login-card">
+        <div className="login-title">🎓 Sistema Educativo</div>
+        <div className="login-sub">Ingresa la contraseña de la API para continuar</div>
+        {err && <div className="error-msg">{err}</div>}
+        <div className="field">
+          <label>Contraseña API</label>
+          <input type="password" value={pw} onChange={e=>setPw(e.target.value)} onKeyDown={e=>e.key==='Enter'&&handleLogin()} placeholder="Tu API_PASSWORD" />
+        </div>
+        <button className="btn btn-primary" style={{width:'100%'}} onClick={handleLogin} disabled={loading}>
+          {loading ? 'Conectando...' : 'Entrar'}
+        </button>
+        <p style={{fontSize:'11px',color:'var(--muted)',marginTop:'1rem',textAlign:'center'}}>Render puede tardar hasta 60s en responder (cold start)</p>
+      </div>
+    </div>
+  );
+}
 
-// Registramos cada archivo de rutas con su prefijo de URL
-app.use('/profesores',    require('./routes/profesores'));
-app.use('/materias',      require('./routes/materias'));
-app.use('/estudiantes',   require('./routes/estudiantes'));
-app.use('/cursos',        require('./routes/cursos'));
-app.use('/horarios',      require('./routes/horarios'));
-app.use('/inscripciones', require('./routes/inscripciones'));
-app.use('/notas',         require('./routes/notas'));
+function Dashboard({ api }) {
+  const [stats, setStats] = useState({});
+  useEffect(() => {
+    ['profesores','materias','estudiantes','cursos','horarios','inscripciones','notas']
+      .forEach(e => api.get(`/${e}`).then(r => setStats(s => ({...s,[e]:r.total??0}))));
+  }, []);
+  return (
+    <div>
+      <div className="stats-grid">
+        {[['👨‍🏫','Profesores','profesores','var(--accent)'],['📚','Materias','materias','var(--accent2)'],['🎓','Estudiantes','estudiantes','var(--green)'],['🏫','Cursos','cursos','var(--amber)'],['🕐','Horarios','horarios','var(--accent)'],['📝','Inscripciones','inscripciones','var(--green)'],['🏆','Notas','notas','var(--amber)']].map(([icon,label,key,color])=>(
+          <div key={key} className="stat-card">
+            <div style={{fontSize:20}}>{icon}</div>
+            <div className="stat-label">{label}</div>
+            <div className="stat-value" style={{color}}>{stats[key]??'...'}</div>
+          </div>
+        ))}
+      </div>
+      <div className="table-wrap" style={{padding:'1.5rem'}}>
+        <p style={{fontSize:'14px',color:'var(--muted)',lineHeight:1.8}}>Bienvenido al panel del <strong style={{color:'var(--text)'}}>Sistema Educativo API</strong>. Usa el menú lateral para gestionar los registros.</p>
+        <div style={{marginTop:'1rem',display:'flex',gap:'0.75rem',flexWrap:'wrap'}}>
+          <span className="badge badge-blue">Node.js + Express</span>
+          <span className="badge badge-green">SQLite</span>
+          <span className="badge badge-amber">Render</span>
+        </div>
+      </div>
+    </div>
+  );
+}
 
-const PORT = process.env.PORT || 3000;
-const server = app.listen(PORT, () => {
-  console.log(`API corriendo en http://localhost:${server.address().port}`);
-});
+function GenericTable({ api, resource, columns, fields, title }) {
+  const [rows, setRows] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [search, setSearch] = useState('');
+  const [modal, setModal] = useState(null);
+  const [form, setForm] = useState({});
+  const [msg, setMsg] = useState(null);
+  const load = useCallback(() => { setLoading(true); api.get(`/${resource}`).then(r=>{setRows(r.data||[]);setLoading(false);}); }, [resource]);
+  useEffect(()=>{load();},[load]);
+  const filtered = rows.filter(r=>!search||Object.values(r).some(v=>String(v).toLowerCase().includes(search.toLowerCase())));
+  const openCreate = () => { const i={}; fields.forEach(f=>{i[f.key]=f.default??'';}); setForm(i); setModal('create'); setMsg(null); };
+  const openEdit = (row) => { const i={}; fields.forEach(f=>{i[f.key]=row[f.key]??'';}); setForm({...i,_id:row.id}); setModal('edit'); setMsg(null); };
+  const handleSave = async () => {
+    const body={...form}; delete body._id;
+    fields.forEach(f=>{if(f.type==='number'&&body[f.key]!=='')body[f.key]=Number(body[f.key]);});
+    const r = modal==='create' ? await api.post(`/${resource}`,body) : await api.put(`/${resource}/${form._id}`,body);
+    if(r.success){setMsg({type:'success',text:modal==='create'?'Creado correctamente':'Actualizado correctamente'});load();setTimeout(()=>setModal(null),800);}
+    else setMsg({type:'error',text:r.message});
+  };
+  const handleDelete = async (id) => {
+    if(!confirm('¿Eliminar este registro?')) return;
+    const r = await api.del(`/${resource}/${id}`);
+    if(r.success) load(); else alert(r.message);
+  };
+  const renderCell = (col, row) => {
+    const v = row[col.key];
+    if(col.key==='activo') return <span className={`badge ${v===1?'badge-green':'badge-red'}`}>{v===1?'Activo':'Inactivo'}</span>;
+    if(col.key==='estado'){const c=v==='activa'?'badge-green':v==='cancelada'?'badge-red':'badge-amber'; return <span className={`badge ${c}`}>{v}</span>;}
+    return String(v??'-');
+  };
+  return (
+    <div>
+      <div className="table-wrap">
+        <div className="table-header">
+          <input className="search-input" placeholder="Buscar..." value={search} onChange={e=>setSearch(e.target.value)} />
+          <button className="btn btn-primary btn-sm" onClick={openCreate}>+ Nuevo {title}</button>
+        </div>
+        {loading ? <div className="loading"><div className="spinner"></div>Cargando...</div>
+          : filtered.length===0 ? <div className="empty">No hay registros</div>
+          : <div style={{overflowX:'auto'}}><table>
+              <thead><tr>{columns.map(c=><th key={c.key}>{c.label}</th>)}<th>Acciones</th></tr></thead>
+              <tbody>{filtered.map(row=>(
+                <tr key={row.id}>
+                  {columns.map(c=><td key={c.key}>{renderCell(c,row)}</td>)}
+                  <td><div style={{display:'flex',gap:'6px'}}>
+                    <button className="btn btn-ghost btn-sm" onClick={()=>openEdit(row)}>Editar</button>
+                    <button className="btn btn-danger btn-sm" onClick={()=>handleDelete(row.id)}>Eliminar</button>
+                  </div></td>
+                </tr>
+              ))}</tbody>
+            </table></div>
+        }
+      </div>
+      {modal && (
+        <div className="modal-overlay" onClick={e=>e.target===e.currentTarget&&setModal(null)}>
+          <div className="modal">
+            <div className="modal-title">{modal==='create'?`Crear ${title}`:`Editar ${title}`}</div>
+            {msg && <div className={msg.type==='success'?'success-msg':'error-msg'}>{msg.text}</div>}
+            <div className="form-grid">
+              {fields.map(f=>(
+                <div key={f.key} className={`field ${f.full?'full':''}`}>
+                  <label>{f.label}</label>
+                  {f.options
+                    ? <select className="select-field" value={form[f.key]} onChange={e=>setForm({...form,[f.key]:e.target.value})}>{f.options.map(o=><option key={o.value} value={o.value}>{o.label}</option>)}</select>
+                    : <input type={f.type||'text'} value={form[f.key]} onChange={e=>setForm({...form,[f.key]:e.target.value})} placeholder={f.placeholder||''} />
+                  }
+                </div>
+              ))}
+            </div>
+            <div className="actions">
+              <button className="btn btn-ghost" onClick={()=>setModal(null)}>Cancelar</button>
+              <button className="btn btn-primary" onClick={handleSave}>Guardar</button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+const SECTIONS = { dashboard:{label:'Dashboard',icon:'📊'}, profesores:{label:'Profesores',icon:'👨‍🏫'}, materias:{label:'Materias',icon:'📚'}, estudiantes:{label:'Estudiantes',icon:'🎓'}, cursos:{label:'Cursos',icon:'🏫'}, horarios:{label:'Horarios',icon:'🕐'}, inscripciones:{label:'Inscripciones',icon:'📝'}, notas:{label:'Notas',icon:'🏆'} };
+const CONFIG = {
+  profesores:{columns:[{key:'id',label:'ID'},{key:'nombre',label:'Nombre'},{key:'email',label:'Email'},{key:'especialidad',label:'Especialidad'},{key:'activo',label:'Estado'}],fields:[{key:'nombre',label:'Nombre',full:true},{key:'email',label:'Email',type:'email'},{key:'telefono',label:'Teléfono'},{key:'especialidad',label:'Especialidad'},{key:'activo',label:'Estado',options:[{value:1,label:'Activo'},{value:0,label:'Inactivo'}]}],title:'Profesor'},
+  materias:{columns:[{key:'id',label:'ID'},{key:'nombre',label:'Nombre'},{key:'codigo',label:'Código'},{key:'creditos',label:'Créditos'}],fields:[{key:'nombre',label:'Nombre',full:true},{key:'codigo',label:'Código',placeholder:'MAT101'},{key:'creditos',label:'Créditos',type:'number'},{key:'descripcion',label:'Descripción',full:true}],title:'Materia'},
+  estudiantes:{columns:[{key:'id',label:'ID'},{key:'nombre',label:'Nombre'},{key:'email',label:'Email'},{key:'documento',label:'Documento'},{key:'activo',label:'Estado'}],fields:[{key:'nombre',label:'Nombre',full:true},{key:'email',label:'Email',type:'email'},{key:'documento',label:'Documento'},{key:'telefono',label:'Teléfono'},{key:'activo',label:'Estado',options:[{value:1,label:'Activo'},{value:0,label:'Inactivo'}]}],title:'Estudiante'},
+  cursos:{columns:[{key:'id',label:'ID'},{key:'nombre',label:'Nombre'},{key:'año',label:'Año'},{key:'semestre',label:'Semestre'},{key:'cupo',label:'Cupo'}],fields:[{key:'nombre',label:'Nombre',full:true},{key:'materiaId',label:'ID Materia',type:'number'},{key:'profesorId',label:'ID Profesor',type:'number'},{key:'año',label:'Año',type:'number',placeholder:'2025'},{key:'semestre',label:'Semestre',options:[{value:1,label:'1'},{value:2,label:'2'}]},{key:'cupo',label:'Cupo',type:'number'}],title:'Curso'},
+  horarios:{columns:[{key:'id',label:'ID'},{key:'cursoId',label:'Curso'},{key:'dia',label:'Día'},{key:'horaInicio',label:'Inicio'},{key:'horaFin',label:'Fin'},{key:'salon',label:'Salón'}],fields:[{key:'cursoId',label:'ID Curso',type:'number'},{key:'dia',label:'Día',options:[{value:'Lunes',label:'Lunes'},{value:'Martes',label:'Martes'},{value:'Miercoles',label:'Miércoles'},{value:'Jueves',label:'Jueves'},{value:'Viernes',label:'Viernes'},{value:'Sabado',label:'Sábado'}]},{key:'horaInicio',label:'Hora inicio',placeholder:'08:00'},{key:'horaFin',label:'Hora fin',placeholder:'10:00'},{key:'salon',label:'Salón',full:true}],title:'Horario'},
+  inscripciones:{columns:[{key:'id',label:'ID'},{key:'estudianteId',label:'Estudiante'},{key:'cursoId',label:'Curso'},{key:'fechaInscripcion',label:'Fecha'},{key:'estado',label:'Estado'}],fields:[{key:'estudianteId',label:'ID Estudiante',type:'number'},{key:'cursoId',label:'ID Curso',type:'number'},{key:'fechaInscripcion',label:'Fecha',placeholder:'2025-03-15'},{key:'estado',label:'Estado',options:[{value:'activa',label:'Activa'},{value:'cancelada',label:'Cancelada'},{value:'finalizada',label:'Finalizada'}]}],title:'Inscripción'},
+  notas:{columns:[{key:'id',label:'ID'},{key:'inscripcionId',label:'Inscripción'},{key:'tipo',label:'Tipo'},{key:'valor',label:'Valor'},{key:'fecha',label:'Fecha'}],fields:[{key:'inscripcionId',label:'ID Inscripción',type:'number'},{key:'tipo',label:'Tipo',options:[{value:'parcial1',label:'Parcial 1'},{value:'parcial2',label:'Parcial 2'},{value:'final',label:'Final'},{value:'taller',label:'Taller'},{value:'proyecto',label:'Proyecto'}]},{key:'valor',label:'Valor (0-5)',type:'number',placeholder:'4.5'},{key:'fecha',label:'Fecha',placeholder:'2025-03-15'},{key:'observacion',label:'Observación',full:true}],title:'Nota'},
+};
+
+function App() {
+  const [password, setPassword] = useState(null);
+  const [section, setSection] = useState('dashboard');
+  if (!password) return <Login onLogin={setPassword} />;
+  const api = useApi(password);
+  const cfg = CONFIG[section];
+  return (
+    <div className="app">
+      <div className="sidebar">
+        <div className="logo">🎓 Edu API</div>
+        {Object.entries(SECTIONS).map(([key,s])=>(
+          <button key={key} className={`nav-item ${section===key?'active':''}`} onClick={()=>setSection(key)}>
+            <span style={{fontSize:16,width:20,textAlign:'center'}}>{s.icon}</span>{s.label}
+          </button>
+        ))}
+        <div style={{marginTop:'auto',paddingTop:'1rem',borderTop:'1px solid var(--border)'}}>
+          <button className="btn btn-ghost btn-sm" style={{width:'100%'}} onClick={()=>setPassword(null)}>Cerrar sesión</button>
+        </div>
+      </div>
+      <div className="main">
+        <div className="topbar">
+          <h1>{SECTIONS[section].icon} {SECTIONS[section].label}</h1>
+          <span style={{fontSize:'12px',color:'var(--muted)'}}>sistema-educativo-api.onrender.com</span>
+        </div>
+        <div className="content">
+          {section==='dashboard' ? <Dashboard api={api} /> : <GenericTable api={api} resource={section} columns={cfg.columns} fields={cfg.fields} title={cfg.title} />}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>

@@ -1,5 +1,8 @@
 # 🎓 Sistema Educativo API
 
+## Modelo de Datos (Diagrama ER)
+![Diagrama de Entidad Relación](./img/diagrama_er.png)
+
 API REST para gestión de un sistema educativo, construida con Node.js, Express y SQLite. Permite administrar profesores, materias, estudiantes, cursos, horarios, inscripciones y notas.
 
 ---

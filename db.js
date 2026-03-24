@@ -85,7 +85,7 @@ db.serialize(() => {
 
   console.log('Tablas creadas correctamente');
 });
-
+-
 function cargarSeed() {
   db.get('SELECT COUNT(*) as total FROM profesores', (err, row) => {
     if (err || row.total > 0) return;
